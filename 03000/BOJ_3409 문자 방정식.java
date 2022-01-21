@@ -19,7 +19,7 @@ public class Main
 		    int K = Integer.parseInt(br.readLine());
 		    
 			ArrayList<String> varNames = new ArrayList<String>(K);
-		    String[][] value = new String[K][3];
+		    arr = new String[K][3];
 		    
 		    for(int i = 0; i < K; ++i)
 		    {
@@ -30,24 +30,19 @@ public class Main
 		        if(tmp[1].indexOf('+') != -1)
 				{
 					String[] tmp2 = tmp[1].split(" \\+ ");
-					value[i][1] = tmp2[0];
-					value[i][2] = tmp2[1];
+					arr[i][1] = tmp2[0];
+					arr[i][2] = tmp2[1];
 				}
-				else value[i][0] = tmp[1];
+				else arr[i][0] = tmp[1];
 		    }
 
 
 			// 트리 연결 구조 2차원 배열 만들기
-			arr = new String[K][3];
-
 			for(int i = 0; i < K; ++i)
 			{
-				if(value[i][0] == null) {
-					arr[i][1] = Integer.toString(varNames.indexOf(value[i][1]));
-					arr[i][2] = Integer.toString(varNames.indexOf(value[i][2]));
-				}
-				else {
-					arr[i][0] = value[i][0];
+				if(arr[i][0] == null) {
+					arr[i][1] = Integer.toString(varNames.indexOf(arr[i][1]));
+					arr[i][2] = Integer.toString(varNames.indexOf(arr[i][2]));
 				}
 			}
 
