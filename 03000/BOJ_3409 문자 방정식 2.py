@@ -1,22 +1,29 @@
 # https://www.acmicpc.net/problem/3409
 import sys
+global arr
+global K
+global P
 
-def recursive(num, cnt, arr, K, txt): #dpcbal
-    word = arr[num][num]
+def recursive(nowNum, readCnt):
+    WORD = arr[nowNum][0]
+    P_LEN = len(P)
 
-    if word != 0: # dc
-        tmp = 0
+    if WORD != 0:
+        nowReadCnt = 0
 
-        for c in range(cnt, len(txt)):
-            if tmp < len(word) and txt[c] == word[tmp]:
-                tmp += 1
-        return tmp
-    
-    for i in range(K):
+        for t in WORD:
+            if readCnt + nowReadCnt == P_LEN:
+                return readCnt + nowReadCnt
 
-    #left = recursive(num, cnt, arr, K, txt)
-    #right = recursive(num, cnt, arr, K, txt)
-    #return left + right
+            if P[readCnt + nowReadCnt] == t:
+                nowReadCnt += 1
+        
+        return readCnt + nowReadCnt
+        
+
+    left = recursive(arr[nowNum][1], readCnt)
+    right = recursive(arr[nowNum][2], left)
+    return right
 
 
 testcaseCnt = int(sys.stdin.readline().strip())
@@ -37,24 +44,24 @@ for _ in range(testcaseCnt):
             value.append(t2)
     
 
-    print(varNames)
-    print(value)
+    # print(varNames)
+    # print(value)
 
 
     # 트리 연결 구조 구하는 2차원 배열 만들기
-    arr = [[0 for col in range(K + 1)] for row in range(K + 1)]
+    arr = [[0 for col in range(3)] for row in range(K)]
 
     for i in range(K):
         if type(value[i]) == list:
-            arr[i][varNames.index(value[i][0])] = 1
-            arr[i][varNames.index(value[i][1])] = 2
+            arr[i][1] = varNames.index(value[i][0])
+            arr[i][2] = varNames.index(value[i][1])
         else:
-            arr[i][i] = value[i]
+            arr[i][0] = value[i]
             
 
     # print()
     # for i in range(K):
-    #     for j in range(K):
+    #     for j in range(3):
     #         print(arr[i][j], end=' ')
     #     print()
 
@@ -63,5 +70,10 @@ for _ in range(testcaseCnt):
     T = sys.stdin.readline().strip() # ROOT 변수 이름
     P = sys.stdin.readline().strip() # 만들어야 하는 변수
 
-    len = recursive(varNames.index(T), 0, arr, K, P)
+    l = recursive(varNames.index(T), 0)
+
+    if l == len(P):
+        print('YES')
+    else:
+        print('NO')
 
