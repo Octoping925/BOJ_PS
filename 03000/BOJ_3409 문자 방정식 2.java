@@ -8,6 +8,8 @@ public class Main
 	static String T;
 	static String P;
 
+	static int[] explored;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int testcaseCnt = Integer.parseInt(br.readLine());
@@ -34,11 +36,6 @@ public class Main
 				else value[i][0] = tmp[1];
 		    }
 
-			// System.out.println('\n');
-			
-			// for(int i = 0; i < K; ++i)
-			// 	System.out.println(value[i][0] + " " + value[i][1] + " " + value[i][2]);
-
 
 			// 트리 연결 구조 2차원 배열 만들기
 			arr = new String[K][3];
@@ -54,18 +51,17 @@ public class Main
 				}
 			}
 
-// 			System.out.println('\n');
-// 			for(int i = 0; i < K; ++i)
-// 				System.out.println(arr[i][0] + " " + arr[i][1] + " " + arr[i][2]);
-
 
 			// 트리 탐색하며 P 구하기
 			T = br.readLine();
 			P = br.readLine();
 
-			int l = recursive(varNames.indexOf(T), 0);
+			explored = new int[K];
+			cleanExplored();
 
-			System.out.println(l == P.length() ? "YES" : "NO");
+			int result = recursive(varNames.indexOf(T), 0);
+
+			System.out.println(result == P.length() ? "YES" : "NO");
 		}
 
 		return;
@@ -73,9 +69,10 @@ public class Main
 
 	public static int recursive(int nowNode, int readCnt)
 	{
-		if(readCnt == P.length())
+		if(readCnt == P.length() || explored[nowNode] == 1)
 			return readCnt;
 
+		explored[nowNode] = 1;
 		String WORD = arr[nowNode][0];
 
 		if(WORD != null)
@@ -87,8 +84,10 @@ public class Main
 				if(readCnt + nowReadCnt == P.length())
 					return readCnt + nowReadCnt;
 				
-				if(P.charAt(readCnt + nowReadCnt) == WORD.charAt(i))
+				if(P.charAt(readCnt + nowReadCnt) == WORD.charAt(i)) {
 					++nowReadCnt;
+					cleanExplored();
+				}
 			}
 
 			return readCnt + nowReadCnt;
@@ -98,5 +97,11 @@ public class Main
 		int right = recursive(Integer.parseInt(arr[nowNode][2]), left);
 		return right;
 	}
-}
 
+	public static void cleanExplored()
+	{
+		int l = explored.length;
+		for(int i = 0; i < l; ++i)
+			explored[i] = 0;
+	}
+}
