@@ -13,22 +13,14 @@ int main()
     for(int i = 1; i <= n; ++i)
         scanf("%d", &arr[i]);
     
-    
-    if(n == 1) printf("%d", arr[1]);
-    else if(n == 2) printf("%d", arr[1] + arr[2]);
-    else
-    {
-        chk[0] = 0, chk[1] = arr[1], chk[2] = arr[2];
-        
-        for(int i = 3; i < n; ++i) {
-            chk[i] = max(chk[i-2] + arr[i], chk[i-3] + arr[i] + arr[i-1]);
-        }
-        
-        printf("%d", chk[n]);
+    chk[1] = arr[1];
+    chk[2] = arr[1] + arr[2];
+    chk[3] = max(arr[1] + arr[3], arr[2] + arr[3]);
+
+    for(int i = 4; i <= n; ++i) {
+        chk[i] = max(chk[i-2] + arr[i], chk[i-3] + arr[i] + arr[i-1]);
     }
+    
+    printf("%d", chk[n]);
+    
 }
-
-/*
-for(int i=3;i<n;i++) { chk[i] = max(chk[i-2] + arr[i], chk[i-3] + arr[i] + arr[i-1]); }
-
-*/
