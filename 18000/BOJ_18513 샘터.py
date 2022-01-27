@@ -3,13 +3,9 @@ n, k = input().split()
 n = int(n)
 k = int(k)
 
-lake = list(map(int, input().split(' ')))
-home = list()
-checked = list()
-
-for i in lake:
-    home.append(i)
-    checked.append(i)
+home = list(map(int, input().split(' ')))
+checked = set()
+checked.update(home)
 
 cnt = 0
 unhappy = 0
@@ -23,9 +19,9 @@ while cnt < k:
         p = home.pop(0)
 
         if p-1 not in checked:
-            print('I append %d'%(p-1))
+            print('I append %d  dis=%d'%(p-1, dis))
             home.append(p-1)
-            checked.append(p-1)
+            checked.add(p-1)
             unhappy += dis
             cnt += 1
         
@@ -33,9 +29,9 @@ while cnt < k:
             break
 
         if p+1 not in checked:
-            print('I append %d'%(p+1))
+            print('I append %d  dis=%d'%(p+1, dis))
             home.append(p+1)
-            checked.append(p+1)
+            checked.add(p+1)
             unhappy += dis
             cnt += 1
 

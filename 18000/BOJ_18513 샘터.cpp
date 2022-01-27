@@ -36,7 +36,7 @@ int main()
 
     int cnt = 0;
     int unhappy = 0;
-    int dis = 1;
+    long long dis = 1;
 
     while(cnt < k)
     {
@@ -80,5 +80,5 @@ int main()
         ++dis;
     }
     
-    printf("%d", unhappy);
+    printf("%lld", unhappy);
 }
