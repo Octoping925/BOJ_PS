@@ -7,23 +7,26 @@ using namespace std;
 int n, k;
 int *lake;
 vector<int> checked;
+queue<int> home;
 
 // 큐 만들고 맨 처음에 lake들 insert.
 // 큐 pop하고 양 옆을 큐에 insert 반복.
 
 int find(int x)
 {
-    for(int i : checked)
-        if(x == i)
-            return 1;
-    return 0;
+    int sum = 3;
+    for(int i : checked) {
+        if(x-1 == i) sum -= 1; //p+1
+        if(x+1 == i) sum -= 2; //p-1
+    }
+        
+    return sum;
 }
 
 int main()
 {
     scanf("%d %d", &n, &k);
     lake = new int[n+1];
-    queue<int> home;
 
     for(int i = 0; i < n; ++i) {
         scanf("%d", &lake[i]);
@@ -43,26 +46,39 @@ int main()
             int p = home.front();
             home.pop();
 
-            if(!find(p-1)) // 큐 안에 p-1이 없으면
-            {
-                home.push(p-1);
-                checked.push_back(p-1);
-                unhappy += dis;
-                ++cnt;
-            }
-            
-            if(cnt == k) break;
+            int res = find(p);
+            switch(res) {
+                case 1:
+                    home.push(p-1);
+                    checked.push_back(p-1);
+                    unhappy += dis;
+                    ++cnt;
+                    break;
 
-            if(!find(p+1)) // 큐 안에 p+1이 없으면
-            {
-                home.push(p+1);
-                checked.push_back(p+1);
-                unhappy += dis;
-                ++cnt;
+                case 2:
+                    home.push(p+1);
+                    checked.push_back(p+1);
+                    unhappy += dis;
+                    ++cnt;
+                    break;
+
+                case 3:
+                    home.push(p-1);
+                    checked.push_back(p-1);
+                    unhappy += dis;
+                    ++cnt;
+                    
+                    if(cnt == k) break;
+                    
+                    home.push(p+1);
+                    checked.push_back(p+1);
+                    unhappy += dis;
+                    ++cnt;
             }
+            if(cnt == k) break;
         }
         ++dis;
     }
-
+    
     printf("%d", unhappy);
 }
