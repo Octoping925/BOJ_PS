@@ -1,30 +1,27 @@
-// https://www.acmicpc.net/problem/14438
+// https://www.acmicpc.net/problem/14427
 #include <stdio.h>
 
 int segtree[1000010], a[1000010];
+int x, y, z;
 
-int min(int x, int y) { return x < y ? x : y; }
+int min(int q, int w)
+{ 
+    if(a[q] < a[w]) return q;
+    if(a[q] > a[w]) return w;
+    return q < w ? q : w;
+}
 
 int init(int start, int end, int node)
 {
-    if(start == end) return segtree[node] = a[start];
+    if(start == end) return segtree[node] = start;
     int mid = (start + end) / 2;
     return segtree[node] = min(init(start, mid, node * 2), init(mid + 1, end, node * 2 + 1));
-}
-
-int getMin(int start, int end, int node, int left, int right)
-{
-    if(right < start || left > end) return 2100000000;
-    if(left <= start && end <= right) return segtree[node];
-
-    int mid = (start + end) / 2;
-    return min(getMin(start, mid, node * 2, left, right), getMin(mid + 1, end, node * 2 + 1, left, right));
 }
 
 int change(int start, int end, int node, int idx)
 {
     if(idx < start || idx > end) return segtree[node];
-    if(start == idx && end == idx) return segtree[node] = a[idx];
+    if(start == idx && end == idx) return segtree[node];
 
     int mid = (start + end) / 2;
     return segtree[node] = min(change(start, mid, node * 2, idx), change(mid + 1, end, node * 2 + 1, idx));
@@ -44,12 +41,12 @@ int main()
     scanf("%d", &m);
     for(int i = 0; i < m; ++i)
     {
-        int x, y, z;
-        scanf("%d %d %d", &x, &y, &z);
+        scanf("%d", &x);
         if(x == 1) {
+            scanf("%d %d", &y, &z);
             a[y] = z;
             change(1, n, 1, y);
         }
-        else printf("%d\n", getMin(1, n, 1, y, z));
+        else printf("%d\n", segtree[1]);
     }
 }
