@@ -35,7 +35,7 @@ int main()
         }
         else if(txt.compare("toggle") == 0) {
             cin >> k;
-            if(bitmask & (1 << k)) bitmask -= (bitmask & (1 << k));
+            if(bitmask & (1 << k)) bitmask &= ~(1 << k);
             else bitmask |= (1 << k);
         }
         else if(txt.compare("all") == 0) bitmask = (1 << 21) - 1;
