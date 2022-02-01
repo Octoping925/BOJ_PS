@@ -1,14 +1,15 @@
 // https://www.acmicpc.net/problem/14889
 #include <stdio.h>
-int n, min = 2100000000;
+int n;
+long long min = 223372036854775807;
 int arr[22][22];
 int teams[22];
 
 int abs(int x) { return x > 0 ? x : -x; }
 
-void recursive(int depth, int cnt)
+void recursive(int t1, int t2)
 {
-    if(cnt == n/2 || depth - cnt == n/2) {
+    if(t1 == n/2) {
         int t1Stat = 0, t2Stat = 0;
         for(int i = 1; i <= n; ++i)
         {
@@ -25,16 +26,15 @@ void recursive(int depth, int cnt)
                         t2Stat += arr[i][j];
             }
         }
-        int result = abs(t1Stat - t2Stat);
+        long long result = abs(t1Stat - t2Stat);
         if(result < min) min = result;
-
         return;
     }
     
-    teams[depth + 1] = 1;
-    recursive(depth + 1, cnt+1);
-    teams[depth + 1] = 0;
-    recursive(depth + 1, cnt);
+    teams[t1 + t2 + 1] = 1;
+    recursive(t1 + 1, t2);
+    teams[t1 + t2 + 1] = 0;
+    if(t2 < n/2) recursive(t1, t2 + 1);
 }
 
 int main()
@@ -45,5 +45,5 @@ int main()
             scanf("%d", &arr[i][j]);
     
     recursive(0, 0);
-    printf("%d", min);
+    printf("%lld", min);
 }
