@@ -1,13 +1,25 @@
-// https://www.acmicpc.net/problem/10814
+// https://www.acmicpc.net/problem/15352
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef struct XY {
+    int val, L, R;
+} xy;
+
+typedef struct NODE {
+    int size, to;
+} node;
+
+int isSame(xy a, xy b) { return a.val == b.val; }
 
 int n, k;
-int arr[1000010], xy[1000010][2], tree[1000010], size[1000010];
+xy *FAN;
+node *TREE;
 
 int find(int x)
 {
-    while(tree[x] == x) return x;
-    return tree[x] = find(tree[x]);
+    while(TREE[x].to == x) return x;
+    return TREE[x].to = find(TREE[x].to);
 }
 
 void merge(int x, int y)
@@ -15,71 +27,59 @@ void merge(int x, int y)
     x = find(x);
     y = find(y);
     if(x == y) return;
-    if(size[x] < size[y]) {
-        size[y] += size[x];
-        tree[x] = y;
+    if(TREE[x].size < TREE[y].size) {
+        TREE[y].size += TREE[x].size;
+        TREE[x].to = y;
     }
     else {
-        size[x] += size[y];
-        tree[y] = x;
+        TREE[x].size += TREE[y].size;
+        TREE[y].to = x;
     }
-    
 }
 
 void delete(int x)
 {
-    int left = xy[x][0], right = xy[x][1];
-    
-    xy[right][0] = left;
-    xy[left][1] = right;
+    --TREE[find(x)].size;
+    FAN[x].val = 0;
 
-    if(arr[left] == arr[right])
+    int left = FAN[x].L, right = FAN[x].R;
+    if(right != -1) FAN[right].L = left;
+    if(left != -1) FAN[left].R = right;
+
+    if(isSame(FAN[left], FAN[right]))
         merge(left, right);
-
-    size[find(x)]--;
 }
 
 int main()
 {
     scanf("%d %d", &k, &n);
+    TREE = malloc(sizeof(node) * (n + 3));
+    FAN = malloc(sizeof(xy) * (n + 3));
+
     for(int i = 1; i <= n; ++i)
     {
-        scanf("%d", &arr[i]);
-        xy[i][0] = i - 1;
-        xy[i][1] = i + 1;
-        tree[i] = i;
-        size[i] = 1;
-        if(arr[i] == arr[i - 1]) merge(i, i-1);
+        scanf("%d", &FAN[i].val);
+        FAN[i].L = i - 1;
+        FAN[i].R = i + 1;
+        TREE[i].to = i;
+        TREE[i].size = 1;
+        if(isSame(FAN[i], FAN[i - 1])) merge(i, i - 1);
     }
-    xy[1][0] = xy[n][1] = -1;
+    FAN[1].L = FAN[n].R = -1;
+
 
     int q;
     long long gift = 0;
-    scanf("%d" ,&q);
+    scanf("%d", &q);
     for(int i = 0; i < q; ++i)
     {
         int a, b;
         scanf("%d %d", &a, &b);
 
-        if(a == 1) {
-            //arr[b] = 0;
-            delete(b);
-        }
-        else {
-            gift += (long long)size[find(b)];
-        }
-        for(int j = 1; j <= n; ++j) printf("%d ", arr[j]);
-        printf("\n");
-        for(int j = 1; j <= n; ++j) printf("%d ", xy[j][0]);
-        printf("\n");
-        for(int j = 1; j <= n; ++j) printf("%d ", xy[j][1]);
-        printf("\n");
-        for(int j = 1; j <= n; ++j) printf("%d ", tree[j]);
-        printf("\n");
-        for(int j = 1; j <= n; ++j) printf("%d ", size[j]);
-        printf("\n\n");
+        if(a == 1) delete(b);
+        else gift += TREE[find(b)].size;
     }
-    
-    printf("\n\n");
-    printf("%d", gift);
+
+    printf("%lld", gift);
+    return 0;
 }

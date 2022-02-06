@@ -42,7 +42,7 @@ int main()
             if(kingY - 1 == dolY) {
                 if(dolY == 1) continue;
                 --dolY;
-            }
+            } 
             --kingY;
         }
         else if(order.compare("T") == 0) { // y++
