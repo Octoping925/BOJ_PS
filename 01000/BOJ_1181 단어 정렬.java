@@ -28,23 +28,23 @@ class Word implements Comparable<Word>
 
 public class Main
 {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-		int n = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
 
         TreeSet<Word> arr = new TreeSet<Word>();
 		
         for(int i = 0; i < n; ++i)
         {
-            String name = br.readLine();
-            arr.add(new Word(name, name.length()));
+                String name = br.readLine();
+                arr.add(new Word(name, name.length()));
         }
 
         for(Word i : arr.descendingSet().descendingSet())
-            System.out.println(i.toString());
+                System.out.println(i.toString());
 
-		return;
-	}
+        return;
+    }
 }
