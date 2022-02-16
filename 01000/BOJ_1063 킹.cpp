@@ -4,101 +4,116 @@
 #include <string>
 #include <stdlib.h>
 
+using namespace std;
+
+class Stone {
+public:
+    char X;
+    int Y;
+    
+    bool canGoL() { return X != 'A'; }
+    bool canGoR() { return X != 'H'; }
+    bool canGoB() { return Y != 1; }
+    bool canGoT() { return Y != 8; }
+    void goL() { X--; }
+    void goR() { X++; }
+    void goB() { Y--; }
+    void goT() { Y++; }
+    void goLB() { goL(), goB(); }
+    void goLT() { goL(), goT(); }
+    void goRB() { goR(), goB(); }
+    void goRT() { goR(), goT(); }
+
+    bool operator == (const Stone& s) {
+        return X == s.X && Y == s.Y;
+    }
+};
+
 int main()
 {
-    char X1, X2;
-    int kingX, kingY, dolX, dolY, n;
-    scanf("%c%d %c%d %d", &X1, &kingY, &X2, &dolY, &n);
-    kingX = X1 - 'A' + 1;
-    dolX = X2 - 'A' + 1;
+    int n;
+    Stone king, dol;
+    scanf("%c%d %c%d %d", &king.X, &king.Y, &dol.X, &dol.Y, &n);
 
     for(int i = 0; i < n; ++i)
     {
-        std::string order = "";
-        std::cin >> order;
-        //printf("\n%c%d %c%d", kingX+'A'-1, kingY, dolX+'A'-1, dolY);
-        //printf("\n%d%d %d%d", kingX, kingY, dolX, dolY);
+        string order;
+        cin >> order;
         if(order.compare("R") == 0) { // x++
-            if(kingX == 8) continue;
-    
-            if(kingX + 1 == dolX) {
-                if(dolX == 8) continue;
-                ++dolX;
+            if(!king.canGoR()) continue;
+            king.goR();
+
+            if(king == dol) {
+                if(dol.canGoR()) dol.goR();
+                else king.goL();
             }
-            ++kingX;
         }
         else if(order.compare("L") == 0) { // x--
-            if(kingX == 1) continue;
-            
-            if(kingX - 1 == dolX) {
-                if(dolX == 1) continue;
-                --dolX;
+            if(!king.canGoL()) continue;
+            king.goL();
+
+            if(king == dol) {
+                if(dol.canGoL()) dol.goL();
+                else king.goR();
             }
-            --kingX;
         }
         else if(order.compare("B") == 0) { // y--
-            if(kingY == 1) continue;
-            
-            if(kingY - 1 == dolY) {
-                if(dolY == 1) continue;
-                --dolY;
+            if(!king.canGoB()) continue;
+            king.goB();
+
+            if(king == dol) {
+                if(dol.canGoB()) dol.goB();
+                else king.goT();
             } 
-            --kingY;
+            
         }
         else if(order.compare("T") == 0) { // y++
-            if(kingY == 8) continue;
-            
-            if(kingY + 1 == dolY) {
-                if(dolY == 8) continue;
-                ++dolY;
+            if(!king.canGoT()) continue;
+            king.goT();
+
+            if(king == dol) {
+                if(dol.canGoT()) dol.goT();
+                else king.goB();
             }
-            ++kingY;
+            
         }
         else if(order.compare("RT") == 0) { // x++ y++
-            if(kingX == 8 || kingY == 8) continue;
+            if(!king.canGoR() || !king.canGoT()) continue;
+            king.goRT();
     
-            if(kingX + 1 == dolX && kingY + 1 == dolY) {
-                if(dolX == 8 || dolY == 8) continue;
-                ++dolX;
-                ++dolY;
+            if(king == dol) {
+                if(dol.canGoR() && dol.canGoT()) dol.goRT();
+                else king.goLB();
             }
-            ++kingX;
-            ++kingY;
         }
         else if(order.compare("LT") == 0) { // x-- y++
-            if(kingX == 1 || kingY == 8) continue;
-    
-            if(kingX - 1 == dolX && kingY + 1 == dolY) {
-                if(dolX == 1 || dolY == 8) continue;
-                --dolX;
-                ++dolY;
+            if(!king.canGoL() || !king.canGoT()) continue;
+            king.goLT();
+
+            if(king == dol) {
+                if(dol.canGoL() && dol.canGoT()) dol.goLT();
+                else king.goRB();
             }
-            --kingX;
-            ++kingY;
         }
         else if(order.compare("RB") == 0) { // x++ y--
-            if(kingX == 8 || kingY == 1) continue;
-    
-            if(kingX + 1 == dolX && kingY - 1 == dolY) {
-                if(dolX == 8 || dolY == 1) continue;
-                ++dolX;
-                --dolY;
+            if(!king.canGoR() || !king.canGoB()) continue;
+            king.goRB();
+
+            if(king == dol) {
+                if(dol.canGoR() && dol.canGoB()) dol.goRB();
+                else king.goLT();
             }
-            ++kingX;
-            --kingY;
         }
         else { // if(order.compare("LB") == 0)  // x-- y--
-            if(kingX == 1 || kingY == 1) continue;
+            if(!king.canGoL() || !king.canGoB()) continue;
+            king.goLB();
     
-            if(kingX - 1 == dolX && kingY - 1 == dolY) {
-                if(dolX == 1 || dolY == 1) continue;
-                --dolX;
-                --dolY;
+            if(king == dol) {
+                if(dol.canGoL() && dol.canGoB()) dol.goLB();
+                else king.goRT();
             }
-            --kingX;
-            --kingY;
         }
     }
 
-    printf("%c%d\n%c%d", kingX+'A'-1, kingY, dolX+'A'-1, dolY);
+    printf("%c%d\n%c%d", king.X, king.Y, dol.X, dol.Y);
 }
