@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char txt[110];
+char txt[101];
 
 int main()
 {
@@ -14,9 +14,6 @@ int main()
     {
         scanf("%s", txt);
         int alpha[30] = { 0, };
-        
-        int chk = 0;
-        char tmp;
         
         for(int j = 0; j < strlen(txt); ++j)
         {
