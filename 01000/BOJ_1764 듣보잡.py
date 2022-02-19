@@ -2,11 +2,12 @@
 import sys
 n, m = list(map(int, sys.stdin.readline().split(' ')))
 
-dut = list()
+dut = dict()
 dutbo = list()
 
 for i in range(n):
-    dut.append(sys.stdin.readline().strip())
+    dut[sys.stdin.readline().strip()] = 1
+    
 for j in range(m):
     txt = sys.stdin.readline().strip()
     if txt in dut:

@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/1038
+// https://www.acmicpc.net/problem/1174
 #include <stdio.h>
 
 int jul(long x) {
@@ -16,7 +16,6 @@ int main()
 {
     int n;
     scanf("%d", &n);
-    n++;
     if(n > 1023) printf("-1");
     else
     {
