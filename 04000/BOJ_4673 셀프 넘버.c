@@ -18,11 +18,7 @@ int getSum(int x)
 int main()
 {
     for(int i = 1; i <= 10000; ++i)
-    {
-        if(arr[getSum(i) + i] == 0) {
-            arr[getSum(i) + i] = 1;
-        }
-    }
+        ++arr[getSum(i) + i];
 
     for(int i = 1; i <= 10000; ++i) {
         if(arr[i] == 0) {

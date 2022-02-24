@@ -10,8 +10,7 @@ int main()
     for(int i = 0; i < T; ++i)
     {
         scanf("%d", &n);
-        int left = n + 9, right = n;
-        if(right > 9) right = 9;
+        int left = n + 9, right = n < 9 ? n : 9;
 
         long long up = 1;
         for(int j = left - right + 1; j <= left; ++j)
