@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Main
 {
-	public static void main(String[] args) throws IOException {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
 
-		int answer = 0;
-		for(int i = Math.max(0, n-70); i < n; ++i)
+        int answer = 0;
+        for(int i = Math.max(0, n-70); i < n; ++i)
         {
             if(bunhehap(i) == n) {
                 answer = i;
@@ -17,8 +17,8 @@ public class Main
             }
         }
         System.out.println(answer);
-		return;
-	}
+        return;
+    }
 
     static int bunhehap(int x){
         int sum = x;

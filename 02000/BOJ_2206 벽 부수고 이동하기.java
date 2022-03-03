@@ -8,13 +8,13 @@ public class Main
     static Queue<Point> visit1 = new LinkedList<Point>();
     static char[][] map;
     
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-		
+        
         map = new char[n + 1][m + 1];
 
         for(int i = 1; i < n; ++i)
@@ -27,8 +27,8 @@ public class Main
         visit0.put(Point(x, y));
 
         while()
-		return;
-	}
+        return;
+    }
 }
 
 public class Point

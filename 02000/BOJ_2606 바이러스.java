@@ -19,8 +19,8 @@ public class Main
         }
     }
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         
         n = Integer.parseInt(br.readLine());
@@ -28,7 +28,7 @@ public class Main
 
         arr = new int[n + 1][n + 1];
         points = new int[n + 1];
-		
+        
         for(int i = 0; i < m; ++i)
         {
             st = new StringTokenizer(br.readLine(), " ");
@@ -40,6 +40,6 @@ public class Main
         answer = 0;
         dfs(1);
         System.out.println(answer - 1);
-		return;
-	}
+        return;
+    }
 }

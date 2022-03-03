@@ -14,11 +14,11 @@ class Point {
 public class Main
 {
     static Queue<Point> q = new LinkedList<Point>();
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-		int n = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
         if(k < n) {
@@ -55,7 +55,7 @@ public class Main
         }
         System.out.println(arr[k][0]);
         System.out.println(arr[k][1]);
-		return;
-	}
+        return;
+    }
 }
 

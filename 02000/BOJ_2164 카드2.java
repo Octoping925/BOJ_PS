@@ -5,10 +5,10 @@ import java.util.*;
 public class Main
 {
     static Queue<Integer> q = new LinkedList<Integer>();
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		int n = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
         for(int i = 1; i <= n; ++i) {
             q.add(i);
         }
@@ -20,6 +20,6 @@ public class Main
             q.poll();
         }
         System.out.println(q.peek());
-		return;
-	}
+        return;
+    }
 }

@@ -35,7 +35,7 @@ public class Main
         int n = Integer.parseInt(br.readLine());
 
         TreeSet<Word> arr = new TreeSet<Word>();
-		
+        
         for(int i = 0; i < n; ++i)
         {
                 String name = br.readLine();

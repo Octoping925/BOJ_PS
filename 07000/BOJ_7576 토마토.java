@@ -48,8 +48,8 @@ public class Main
         else System.out.println(answer - 1);
     }
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         q = new LinkedList<>();
 
@@ -59,7 +59,7 @@ public class Main
         n = Integer.parseInt(st.nextToken());
 
         arr = new int[n + 1][m + 1];
-		
+        
         for(int i = 1; i <= n; ++i)
         {
             st = new StringTokenizer(br.readLine(), " ");
@@ -77,8 +77,8 @@ public class Main
         }
 
         bfs();
-		return;
-	}
+        return;
+    }
 
     static class Pair{
         public int x, y;

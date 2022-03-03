@@ -3,11 +3,11 @@ https://www.acmicpc.net/problem/1330
 
 int main()
 {
-	int a[10];
-	scanf("%d %d", &a[0], &a[1]);
+    int a[10];
+    scanf("%d %d", &a[0], &a[1]);
 
-	if (a[0] < a[1]) printf("<");
-	if (a[0] > a[1]) printf(">");
-	if (a[0] == a[1]) printf("==");
-	return 0;
+    if (a[0] < a[1]) printf("<");
+    if (a[0] > a[1]) printf(">");
+    if (a[0] == a[1]) printf("==");
+    return 0;
 }

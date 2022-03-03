@@ -25,14 +25,14 @@ class Line implements Comparable<Line>
 
 public class Main
 {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-		int n = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
 
         ArrayList<Line> arr = new ArrayList<Line>();
-		
+        
         for(int i = 0; i < n; ++i)
         {
             st = new StringTokenizer(br.readLine(), " ");
@@ -62,6 +62,6 @@ public class Main
         }
 
         System.out.println(sum + right - left);
-		return;
-	}
+        return;
+    }
 }

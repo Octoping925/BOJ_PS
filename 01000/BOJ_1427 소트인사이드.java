@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Main
 {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         String n = br.readLine();
         ArrayList<Character> k = new ArrayList<>();
@@ -20,6 +20,6 @@ public class Main
             System.out.print(i);
         }
         
-		return;
-	}
+        return;
+    }
 }

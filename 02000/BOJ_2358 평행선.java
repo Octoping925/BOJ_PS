@@ -7,12 +7,12 @@ public class Main
     static HashMap<Integer,Integer> pointX = new HashMap<Integer,Integer>();
     static HashMap<Integer,Integer> pointY = new HashMap<Integer,Integer>();
     
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-		int n = Integer.parseInt(br.readLine());
-		
+        int n = Integer.parseInt(br.readLine());
+        
         for(int i = 0; i < n; ++i)
         {
             st = new StringTokenizer(br.readLine(), " ");
@@ -39,6 +39,6 @@ public class Main
         }
         
         System.out.println(answer);
-		return;
-	}
+        return;
+    }
 }

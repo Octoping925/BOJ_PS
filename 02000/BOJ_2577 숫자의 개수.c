@@ -9,7 +9,7 @@ int main()
         scanf("%d", &k);
         t *= k;
     }
-	
+    
     while(t > 10) {
         ++a[t % 10];
         t /= 10;
