@@ -1,19 +1,18 @@
-// https://www.acmicpc.net/problem/11279
+// https://www.acmicpc.net/problem/1927
 #include <stdio.h>
 
 int heap[200010];
 int n, size = 0;
 
-void swap(int *x, int *y){
+void swap(int *x, int *y) {
     int tmp = *x;
     *x = *y;
     *y = tmp;
 }
 
-
 void upify(int x)
 {
-    while(heap[x / 2] < heap[x])
+    while(heap[x / 2] > heap[x])
     {
         if(x == 1) return;
         swap(&heap[x], &heap[x / 2]);
@@ -29,15 +28,15 @@ void downify(int x)
         if(left > size) return;
         if(right > size)
         {
-            if(heap[x] > heap[left]) return;
+            if(heap[x] < heap[left]) return;
             swap(&heap[x], &heap[left]);
             x = left;
         }
-        else if(heap[x] < heap[left] && heap[left] >= heap[right]) {
+        else if(heap[x] > heap[left] && heap[left] <= heap[right]) {
             swap(&heap[x], &heap[left]);
             x = left;
         }
-        else if(heap[x] < heap[right] && heap[right] >= heap[left]) {
+        else if(heap[x] > heap[right] && heap[right] <= heap[left]) {
             swap(&heap[x], &heap[right]);
             x = right;
         }
@@ -53,11 +52,11 @@ void addHeap(int x)
 
 int pop()
 {
-    int maximum = heap[1];
+    int minimum = heap[1];
     swap(&heap[1], &heap[size]);
     size--;
     downify(1);
-    return maximum;
+    return minimum;
 }
 
 int print()

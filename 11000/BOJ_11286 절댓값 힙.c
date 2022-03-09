@@ -1,19 +1,27 @@
-// https://www.acmicpc.net/problem/11279
+// https://www.acmicpc.net/problem/11286
 #include <stdio.h>
 
 int heap[200010];
 int n, size = 0;
 
-void swap(int *x, int *y){
+void swap(int *x, int *y) {
     int tmp = *x;
     *x = *y;
     *y = tmp;
 }
 
+int abs(int x) {
+    return x > 0 ? x : -x;
+}
+
+int compare(int x, int y) {
+    if(abs(x) != abs(y)) return abs(x) < abs(y) ? -1 : 1;
+    if(abs(x) == abs(y)) return x - y;
+}
 
 void upify(int x)
 {
-    while(heap[x / 2] < heap[x])
+    while(compare(heap[x / 2], heap[x]) > 0)
     {
         if(x == 1) return;
         swap(&heap[x], &heap[x / 2]);
@@ -29,15 +37,15 @@ void downify(int x)
         if(left > size) return;
         if(right > size)
         {
-            if(heap[x] > heap[left]) return;
+            if(compare(heap[x], heap[left]) < 0) return;
             swap(&heap[x], &heap[left]);
             x = left;
         }
-        else if(heap[x] < heap[left] && heap[left] >= heap[right]) {
+        else if(compare(heap[x], heap[left]) > 0 && compare(heap[left], heap[right]) <= 0) {
             swap(&heap[x], &heap[left]);
             x = left;
         }
-        else if(heap[x] < heap[right] && heap[right] >= heap[left]) {
+        else if(compare(heap[x], heap[right]) > 0 && compare(heap[right], heap[left]) <= 0) {
             swap(&heap[x], &heap[right]);
             x = right;
         }
@@ -53,11 +61,11 @@ void addHeap(int x)
 
 int pop()
 {
-    int maximum = heap[1];
+    int minimum = heap[1];
     swap(&heap[1], &heap[size]);
     size--;
     downify(1);
-    return maximum;
+    return minimum;
 }
 
 int print()
