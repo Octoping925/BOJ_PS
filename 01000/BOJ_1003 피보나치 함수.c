@@ -1,14 +1,11 @@
 // https://www.acmicpc.net/problem/1003
 #include <stdio.h>
 
-int ans_z[45], ans_o[45];
+int ans_z[45] = {1,0,1,1}, ans_o[45] = {0,1,1,2};
+int n, k;
 
 int main()
 {
-    ans_z[0] = 1, ans_z[1] = 0, ans_z[2] = 1, ans_z[3] = 1;
-    ans_o[0] = 0, ans_o[1] = 1, ans_o[2] = 1, ans_o[3] = 2;
-    
-    int n, k;
     scanf("%d", &n);
     
     for(int i = 0; i < n; ++i)

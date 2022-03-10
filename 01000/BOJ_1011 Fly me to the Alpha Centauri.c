@@ -10,14 +10,11 @@ void solution(int x)
     {
         if(x <= (long long)i*(i+1))
         {
-            if(x <= (long long)i*i) 
-                printf("%d\n", 2 * i - 1);
-            else
-                printf("%d\n", 2 * i);
-            break;
+            if(x <= (long long)i*i) printf("%d\n", 2 * i - 1);
+            else printf("%d\n", 2 * i);
+            return;
         }
-
-    return;
+    }
 }
 
 int main()

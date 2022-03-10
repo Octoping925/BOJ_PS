@@ -3,18 +3,10 @@
 
 int bat[52][52];
 
-void init()
-{
-    for(int i = 0; i < 51; ++i)
-        for(int j = 0; j < 51; ++j)
-            bat[i][j] =  0;
-}
-
 void exp(int x, int y)
 {
     if(bat[x][y] == 0) return;
     else bat[x][y] = 0;
-    
     
     if(x > 0) exp(x-1, y);
     if(x < 50) exp(x+1, y);
@@ -34,7 +26,6 @@ int main()
         scanf("%d %d %d", &w, &h, &n);
         
         // make map
-        init();
         for(int i = 0; i < n; ++i)
         {
             int x, y;

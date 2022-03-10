@@ -11,7 +11,7 @@ int main()
     int T, H, W, N;
     scanf("%d", &T);
 
-    for(int testcase = 0; testcase < T; ++testcase)
+    while(T--)
     {
         scanf("%d %d %d", &H, &W, &N);
         printf("%d", N % H == 0 ? H : N % H);
