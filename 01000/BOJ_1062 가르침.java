@@ -57,7 +57,7 @@ public class Main
 
     static void back(int cnt, int word) {
         if(cnt == k) {
-            System.out.println("learned: " + bittoString(word));
+            //System.out.println("learned: " + bittoString(word));
             int sum = 0;
             for(int i = 0; i < n; ++i) {
                 if(isbitbigger(word, bitmask[i])) {
@@ -84,13 +84,13 @@ public class Main
     static int bitadd(int x, char add) {
         return x | (1 << (add - 'a'));
     }
-    static String bittoString(int bit) {
-        String k = "";
-        for(int i = 0; i < 26; ++i) {
-            if((bit & (1 << i)) > 0) k += (char)(i + 'a');
-        }
-        return k;
-    }
+    // static String bittoString(int bit) {
+    //     String k = "";
+    //     for(int i = 0; i < 26; ++i) {
+    //         if((bit & (1 << i)) > 0) k += (char)(i + 'a');
+    //     }
+    //     return k;
+    // }
     static boolean isbitbigger(int bit1, int bit2) {
         return (bit1 & bit2) == bit2;
     }
