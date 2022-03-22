@@ -1,3 +1,3 @@
 # https://www.acmicpc.net/problem/3046
-a, b = input().split(' ')
-print(int(b)*2 - int(a))
+a, b = map(int, input().split())
+print(2*b - a)
