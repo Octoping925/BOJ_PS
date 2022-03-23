@@ -1,7 +1,5 @@
 # https://www.acmicpc.net/problem/1620
-n, m = input().split(' ')
-n = int(n)
-m = int(m)
+n, m = map(int, input().split(' '))
 
 dogamDict = dict()
 dogamArr = list()
