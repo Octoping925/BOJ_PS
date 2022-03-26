@@ -1,3 +1,5 @@
+# https://programmers.co.kr/learn/courses/30/lessons/17683
+
 def getMusicTime(txt):
     musicStart = (int(txt.split(':')[0]) * 60 + int(txt.split(',')[0].split(':')[1]))
     musicEnd = (int(txt.split(',')[1].split(':')[0]) * 60 + int(txt.split(',')[1].split(':')[1]))
