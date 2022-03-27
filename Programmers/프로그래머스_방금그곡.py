@@ -12,26 +12,16 @@ def getMusicInfo(txt):
     return txt.split(',')[-1]
 
 def makeReplace(txt):
-    return txt.replace('C#', 'c').replace('D#', 'd').replace('F#')
+    return txt.replace('C#', 'c').replace('D#', 'd').replace('F#', 'f').replace('G#', 'g').replace('A#', 'a')
     
 
 def cutmusic(txt):
     musicTime = getMusicTime(txt)
-    musicInfo = getMusicInfo(txt)
+    musicInfo = makeReplace(getMusicInfo(txt))
     musicPlayed = ""
     
-    i = 0
-    while True:
-        if i >= musicTime:
-            break
-            
+    for i in range(musicTime):
         musicPlayed += musicInfo[i % len(musicInfo)]
-        
-        if musicInfo[(i + 1) % len(musicInfo)] == '#':
-            musicPlayed += musicInfo[(i + 1) % len(musicInfo)]
-            i += 1
-            musicTime += 1
-        i += 1
         
     return musicPlayed
     
@@ -40,14 +30,14 @@ def solution(m, musicinfos):
     musicPlayed = []
     musicCorrect = []
     
-    
     for txt in musicinfos:
         musicPlayed.append(cutmusic(txt))
         
-        if cutmusic(txt).find(m) != -1 and cutmusic(txt).find(m + "#") == -1:
+        if cutmusic(txt).find(makeReplace(m)) != -1:
             musicCorrect.append(txt)
         
-        
+    if len(musicCorrect) == 0:
+        return "(None)"
     
     maxTime = -1
     maxName = ""
@@ -56,6 +46,4 @@ def solution(m, musicinfos):
             maxName = getMusicName(music)
             maxTime = getMusicTime(music)
     
-    if maxTime == -1:
-        return "(None)"
     return maxName

@@ -10,10 +10,8 @@ int main()
     long long xxor = 0;
     
     while(n--) {
-        int command;
+        int command, k;
         scanf("%d", &command);
-        
-        int k;
         switch(command) {
             case 1:
                 scanf("%d", &k);
@@ -36,5 +34,6 @@ int main()
                 break;
         }
     }
-        return 0;
+
+    return 0;
 }
