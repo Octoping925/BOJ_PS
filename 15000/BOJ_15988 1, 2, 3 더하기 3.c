@@ -13,12 +13,10 @@ long long getSumCnt(int x)
 
 int main()
 {
-    int n;
+    int n, m;
     scanf("%d", &n);
     
-    for(int i = 0; i < n; ++i)
-    {
-        int m;
+    for(int i = 0; i < n; ++i) {
         scanf("%d", &m);
         printf("%lld\n", getSumCnt(m));
     }
