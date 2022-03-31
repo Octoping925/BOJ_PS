@@ -2,96 +2,100 @@
 import java.io.*;
 import java.util.*;
 
-public class Main
-{
-    static String words[];
-    static int bitmask[];
-    static int allbitmask[];
+class Bitmask {
+
+    private int bit;
+    private int size;
+
+    Bitmask() {
+        bit = 0;
+        size = 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Bitmask addBit(int add) {
+        if (!this.isHere(add)) {
+            bit |= (1 << add);
+            size++;
+        }
+        return this;
+    }
+
+    public Bitmask addBit(String add) {
+        for (char c : add.toCharArray()) {
+            this.addBit(c - 'a');
+        }
+        return this;
+    }
+
+    public Bitmask subBit(int add) {
+        if (this.isHere(add)) {
+            bit &= ~(1 << add);
+            size--;
+        }
+        return this;
+    }
+
+    public boolean isHere(int x) {
+        return (bit & (1 << x)) > 0;
+    }
+
+    public boolean isBiggerThan(Bitmask bit) {
+        return (this.bit & bit.bit) == bit.bit;
+    }
+}
+
+public class Main {
+
+    static Bitmask[] bitmask;
+    static Bitmask allBitmask;
     static int n, k, max;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
-        st = new StringTokenizer(br.readLine(), " ");
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
-        
-        if(k < 5) {
-            System.out.println("0");
-            return;
-        }
 
-        bitmask = new int[n];
-        allbitmask = new int[26];
-        words = new String[n];
-        int useNum = 0;
-        for(int i = 0; i < n; ++i) {
+        allBitmask = new Bitmask();
+        bitmask = new Bitmask[n];
+        for (int i = 0; i < n; ++i) {
             String str = br.readLine();
-            words[i] = str;
-            for(char j : str.toCharArray()) {
-                bitmask[i] = bitadd(bitmask[i], j);
-                if(allbitmask[j - 'a'] == 0) {
-                    ++allbitmask[j - 'a'];
-                    ++useNum;
-                }
-                
-            }
+            bitmask[i] = new Bitmask().addBit(str);
+            allBitmask.addBit(str);
         }
 
-        if(useNum <= k) {
-            System.out.println(n);
-            return;
+        if (allBitmask.getSize() <= k) {
+            max = n;
+        } else {
+            Bitmask bit = new Bitmask().addBit("antic");
+            back(bit, -1);
         }
 
-        int word = 0;
-        word = bitadd(word, 'a');
-        word = bitadd(word, 'n');
-        word = bitadd(word, 't');
-        word = bitadd(word, 'i');
-        word = bitadd(word, 'c');
-        back(5, word);
         System.out.println(max);
-        return;
     }
 
-    static void back(int cnt, int word) {
-        if(cnt == k) {
-            //System.out.println("learned: " + bittoString(word));
+    static void back(Bitmask bit, int lastAddIdx) {
+        if (bit.getSize() == k) {
             int sum = 0;
-            for(int i = 0; i < n; ++i) {
-                if(isbitbigger(word, bitmask[i])) {
+            for (int i = 0; i < n; ++i) {
+                if (bit.isBiggerThan(bitmask[i])) {
                     sum++;
-                    System.out.println(words[i]);
                 }
             }
-            if(sum > max) max = sum;
-            System.out.println(sum);
-            System.out.println();
+            max = Math.max(sum, max);
             return;
         }
 
-        for(int i = 0; i < 26; ++i)
-        {
-            if(allbitmask[i] == 1 && (word & (1 << i)) == 0)
-                back(cnt + 1, bitadd(word, i));
+        for (int i = lastAddIdx + 1; i < 26; ++i) {
+            if (allBitmask.isHere(i)) {
+                back(bit.addBit(i), i);
+                bit.subBit(i);
+            }
         }
-    }
-
-    static int bitadd(int x, int add) {
-        return x | (1 << add);
-    }
-    static int bitadd(int x, char add) {
-        return x | (1 << (add - 'a'));
-    }
-    // static String bittoString(int bit) {
-    //     String k = "";
-    //     for(int i = 0; i < 26; ++i) {
-    //         if((bit & (1 << i)) > 0) k += (char)(i + 'a');
-    //     }
-    //     return k;
-    // }
-    static boolean isbitbigger(int bit1, int bit2) {
-        return (bit1 & bit2) == bit2;
     }
 }
