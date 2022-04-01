@@ -8,11 +8,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String p = br.readLine();
-        System.out.println(mine(p));
+        System.out.println(solution(br.readLine()));
     }
 
-    public static String mine(String txt) {
+    public static String solution(String txt) {
         for(char i : txt.toCharArray())
         {
             if(i == '+' || i == '-') {
@@ -28,10 +27,8 @@ public class Main {
                 expStack.push(i);
             }
             else if(i == ')') {
-                if(expStack.peek() != '(') {
-                    while(expStack.peek() != '(') {
-                        calc();
-                    }
+                while(expStack.peek() != '(') {
+                    calc();
                 }
                 expStack.pop();
                 if(!expStack.isEmpty() && (expStack.peek() == '*' || expStack.peek() == '/'))
