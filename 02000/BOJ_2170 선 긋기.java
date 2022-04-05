@@ -2,66 +2,60 @@
 import java.io.*;
 import java.util.*;
 
-class Line implements Comparable<Line>
-{
-    private int left;
-    private int right;
-    public Line(int l, int r)
-    {
+class Line implements Comparable<Line> {
+    public int left;
+    public int right;
+
+    public Line(int l, int r) {
         left = l;
         right = r;
     }
 
-    public int getLength() { return right - left; }
-    public int getLeft() { return left; }
-    public int getRight() { return right; }
+    public int getLength() {
+        return right - left;
+    }
+    public void set(Line l) {
+        left = l.left;
+        right = l.right;
+    }
 
     @Override
-    public int compareTo(Line l)
-    {
-        return Integer.compare(left, l.getLeft());
+    public int compareTo(Line l) {
+        return Integer.compare(left, l.left);
     }
 }
 
-public class Main
-{
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
         int n = Integer.parseInt(br.readLine());
 
-        ArrayList<Line> arr = new ArrayList<Line>();
-        
-        for(int i = 0; i < n; ++i)
-        {
-            st = new StringTokenizer(br.readLine(), " ");
-            int l = Integer.parseInt(st.nextToken());
-            int r = Integer.parseInt(st.nextToken());
-            arr.add(new Line(l, r));
+        Line[] arr = new Line[n];
+
+        for(int i = 0; i < n; ++i) {
+            String[] st = br.readLine().split(" ");
+            int l = Integer.parseInt(st[0]);
+            int r = Integer.parseInt(st[1]);
+            arr[i] = new Line(l, r);
         }
 
-        Collections.sort(arr);
+        Arrays.sort(arr);
 
         long sum = 0;
-        int left = 0, right = 0, sw = 0;
-        for(Line i  : arr)
-        {
-            int ll = i.getLeft(), rr = i.getRight();
-            if(sw == 0) {
-                left = ll;
-                right = rr;
-                sw = 1;
+        Line l = new Line(0, 0);
+        boolean first = true;
+        for(Line i : arr) {
+            if(first) {
+                l.set(i);
+                first = false;
             }
-            if(ll > right) {
-                sum += right - left;
-                left = ll;
-                right = rr;
+            if(i.left > l.right) {
+                sum += l.getLength();
+                l.set(i);
             }
-            else right = Math.max(rr, right);
+            else l.right = Math.max(i.right, l.right);
         }
 
-        System.out.println(sum + right - left);
-        return;
+        System.out.println(sum + l.getLength());
     }
 }
