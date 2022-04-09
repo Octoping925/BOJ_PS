@@ -6,31 +6,27 @@ public class Main
 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
 
         int T = Integer.parseInt(br.readLine());
-        for(int t = 0; t < T; ++t)
-        {
-            char p[] = br.readLine().toCharArray();
+        for(int t = 0; t < T; ++t) {
+            char[] p = br.readLine().toCharArray();
             int len = Integer.parseInt(br.readLine());
-            st = new StringTokenizer(br.readLine(), ",[]");
-            ArrayList<Integer> arr = new ArrayList<Integer>();
+            String[] arr = new String[len];
 
+            StringTokenizer st = new StringTokenizer(br.readLine(), ",[]");
             for(int i = 0; i < len; ++i) {
-                arr.add(Integer.parseInt(st.nextToken()));
+                arr[i] = st.nextToken();
             }
-            
 
             int left = 0, right = len - 1;
             boolean order = true; // 정상순서
             boolean sw = true;
 
-            for(char c : p)
-            {
+            for(char c : p) {
                 if(c == 'R') {
                     order = !order;
                 }
-                else if(c == 'D') {
+                else { // c == 'D'
                     if(left > right) {
                         sw = false;
                         break;
@@ -39,28 +35,24 @@ public class Main
                     else right--;
                 }
             }
-            
-            StringBuilder answer = new StringBuilder();
+
             if(sw) {
-                answer.append("[");
+                StringJoiner answer = new StringJoiner(",", "[", "]");
                 if(order){
                     for(int i = left; i <= right; i++) {
-                        answer.append(arr.get(i));
-                        if(i < right) answer.append(",");
+                        answer.add(arr[i]);
                     }
                 }
                 else{
                     for(int i = right; i >= left; i--) {
-                        answer.append(arr.get(i));
-                        if(i > left) answer.append(",");
+                        answer.add(arr[i]);
                     }
                 }
-                answer.append("]");
-                
+                System.out.println(answer);
             }
-            else answer.append("error");
-            
-            System.out.println(answer.toString());
+            else {
+                System.out.println("error");
+            }
         }
     }
 }
