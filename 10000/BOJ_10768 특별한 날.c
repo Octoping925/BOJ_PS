@@ -2,5 +2,6 @@
 #include <stdio.h>
 int main(m,d) {
     scanf("%d %d", &m, &d);
-    printf(m == 2 && d == 18 ? "Special" : (m > 2 || m == 2 && d > 18) ? "After" : "Before");
+    int md = m*100+d;
+    printf(md == 218 ? "Special" : md > 218 ? "After" : "Before");
 }
