@@ -13,22 +13,18 @@ public class Main
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int testcaseCnt = Integer.parseInt(br.readLine());
-        
-        for(int xxx = 0; xxx < testcaseCnt; ++xxx)
-        {
+
+        for(int tc = 0; tc < testcaseCnt; ++tc) {
             int K = Integer.parseInt(br.readLine());
-            
-            ArrayList<String> varNames = new ArrayList<String>(K);
+
+            ArrayList<String> varNames = new ArrayList<>(K);
             arr = new String[K][3];
-            
-            for(int i = 0; i < K; ++i)
-            {
-                String txt = br.readLine();
-                String[] tmp = txt.split(" = ");
+
+            for(int i = 0; i < K; ++i) {
+                String[] tmp = br.readLine().split(" = ");
                 varNames.add(tmp[0]);
-                
-                if(tmp[1].indexOf('+') != -1)
-                {
+
+                if(tmp[1].contains("+")) {
                     String[] tmp2 = tmp[1].split(" \\+ ");
                     arr[i][1] = tmp2[0];
                     arr[i][2] = tmp2[1];
@@ -38,8 +34,7 @@ public class Main
 
 
             // 트리 연결 구조 2차원 배열 만들기
-            for(int i = 0; i < K; ++i)
-            {
+            for(int i = 0; i < K; ++i) {
                 if(arr[i][0] == null) {
                     arr[i][1] = Integer.toString(varNames.indexOf(arr[i][1]));
                     arr[i][2] = Integer.toString(varNames.indexOf(arr[i][2]));
@@ -52,14 +47,12 @@ public class Main
             P = br.readLine();
 
             explored = new int[K];
-            cleanExplored();
+            Arrays.fill(explored, 0);
 
             int result = recursive(varNames.indexOf(T), 0);
 
             System.out.println(result == P.length() ? "YES" : "NO");
         }
-
-        return;
     }
 
     public static int recursive(int nowNode, int readCnt)
@@ -70,18 +63,16 @@ public class Main
         explored[nowNode] = 1;
         String WORD = arr[nowNode][0];
 
-        if(WORD != null)
-        {
+        if(WORD != null) {
             int nowReadCnt = 0;
 
-            for(int i = 0; i < WORD.length(); ++i)
-            {
+            for(char c : WORD.toCharArray()) {
                 if(readCnt + nowReadCnt == P.length())
                     return readCnt + nowReadCnt;
-                
-                if(P.charAt(readCnt + nowReadCnt) == WORD.charAt(i)) {
+
+                if(P.charAt(readCnt + nowReadCnt) == c) {
                     ++nowReadCnt;
-                    cleanExplored();
+                    Arrays.fill(explored, 0);
                 }
             }
 
@@ -91,12 +82,5 @@ public class Main
         int left = recursive(Integer.parseInt(arr[nowNode][1]), readCnt);
         int right = recursive(Integer.parseInt(arr[nowNode][2]), left);
         return right;
-    }
-
-    public static void cleanExplored()
-    {
-        int l = explored.length;
-        for(int i = 0; i < l; ++i)
-            explored[i] = 0;
     }
 }
