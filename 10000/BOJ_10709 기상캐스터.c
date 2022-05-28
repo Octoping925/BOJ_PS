@@ -15,8 +15,7 @@ int main()
     for(int i = 0; i < h; ++i) {
         for(int j = 0; j < w; ++j) {
             if(cloud[i][j] == 'c') dp[i][j] = 0;
-            else if(j == 0) dp[i][j] = -1;
-            else if(dp[i][j-1] == -1) dp[i][j] = -1;
+            else if(j == 0 || dp[i][j-1] == -1) dp[i][j] = -1;
             else dp[i][j] = dp[i][j-1] + 1;
         }
     }
