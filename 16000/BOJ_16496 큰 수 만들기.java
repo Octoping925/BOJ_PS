@@ -14,7 +14,7 @@ public class Main
         String[] arr = new String[n];
         for(int i = 0; i < n; ++i) {
             arr[i] = st.nextToken();
-            allZero = allZero && arr[i].equals("0");
+            allZero &= arr[i].equals("0");
         }
 
         if(allZero) {
