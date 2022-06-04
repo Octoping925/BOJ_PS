@@ -9,17 +9,20 @@ public class Main {
 
         HashSet<String> hs = new HashSet<>();
         while(n-->0) {
-            String[] str = br.readLine().split(" ");
-            switch(str[1]) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String name = st.nextToken();
+            switch(st.nextToken()) {
                 case "enter":
-                    hs.add(str[0]);
+                    hs.add(name);
                     break;
                 case "leave":
-                    hs.remove(str[0]);
+                    hs.remove(name);
                     break;
             }
         }
-
-        hs.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+        
+        StringJoiner sj = new StringJoiner("\n");
+        hs.stream().sorted(Comparator.reverseOrder()).forEach(sj::add);
+        System.out.print(sj);
     }
 }
