@@ -8,14 +8,12 @@ int main()
 {
     int n, k;
     scanf("%d %d", &n, &k);
-
-    for(int i = 1; i <= k; ++i)
-    {
+        
+    dp[0] = 1;
+    for(int i = 0; i < n; ++i) {
         scanf("%d", &coin);
-        for(int j = 0; j < n; ++j)
-        {
-            if(i-coin >= 0)
-                dp[i] += dp[i-coin];
+        for(int j = coin; j <= k; ++j) {
+            dp[j] += dp[j-coin];
         }
     }
 
