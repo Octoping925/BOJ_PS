@@ -40,14 +40,3 @@ int main()
     printTime(subtractTime(end, start));
     return 0;
 }
-
-int main()
-{
-    Time start, end;
-
-    scanf("%d:%d:%d", &start.hour, &start.minute, &start.second);
-    scanf("%d:%d:%d", &end.hour, &end.minute, &end.second);
-
-    printTime(subtractTime(end, start));
-    return 0;
-}
