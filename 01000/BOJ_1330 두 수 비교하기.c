@@ -1,13 +1,13 @@
-https://www.acmicpc.net/problem/1330
+// https://www.acmicpc.net/problem/1330
 #include <stdio.h>
 
 int main()
 {
-    int a[10];
-    scanf("%d %d", &a[0], &a[1]);
+	int a, b;
+	scanf("%d %d", &a, &b);
 
-    if (a[0] < a[1]) printf("<");
-    if (a[0] > a[1]) printf(">");
-    if (a[0] == a[1]) printf("==");
-    return 0;
+	if (a < b) printf("<");
+	else if (a > b) printf(">");
+	else printf("==");
+	return 0;
 }
