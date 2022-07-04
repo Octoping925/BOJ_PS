@@ -5,20 +5,24 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
         LinkedList<Integer> rankList = new LinkedList<>();
-        int[] user = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        
+        int n = Integer.parseInt(st.nextToken());
+        int score = Integer.parseInt(st.nextToken());
+        int p = Integer.parseInt(st.nextToken());
 
-        if (user[0] > 0) {
+        if (n > 0) {
             Arrays.stream(br.readLine().split(" "))
                 .mapToInt(Integer::parseInt)
                 .forEach(rankList::add);
         }
 
-        if(user[0] == user[2] && user[1] <= rankList.getLast()){
+        if(n == p && score <= rankList.getLast()){
             System.out.println(-1);
         } else {
             long result = rankList.stream()
-                .filter(x -> x > user[1])
+                .filter(x -> x > score)
                 .count() + 1;
 
             System.out.println(result);
