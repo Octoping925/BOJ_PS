@@ -4,14 +4,14 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        br.readLine().chars()
+        String txt = br.readLine().chars()
                 .filter(x -> x > '9')
-                .forEach(x -> sb.append((char) x));
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
 
         String original = br.readLine();
 
-        System.out.println(sb.toString().contains(original) ? 1 : 0);
+        System.out.println(txt.contains(original) ? 1 : 0);
     }
 }
