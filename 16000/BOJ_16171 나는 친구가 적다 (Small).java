@@ -1,5 +1,4 @@
 // https://www.acmicpc.net/problem/16171
-// https://www.acmicpc.net/problem/16171
 import java.io.*;
 
 public class Main {

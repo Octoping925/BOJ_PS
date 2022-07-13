@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/15655
+// https://www.acmicpc.net/problem/15657
 #include <stdio.h>
 
 void sort(int *arr, int size) {
