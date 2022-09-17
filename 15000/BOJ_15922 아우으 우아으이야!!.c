@@ -1,6 +1,9 @@
 // https://www.acmicpc.net/problem/15922
 #include <stdio.h>
 
+int left = -1e9, right = -1e9;
+int sum = 0;
+
 int max(int x, int y) { return x > y ? x : y; }
 
 int main()
@@ -8,29 +11,19 @@ int main()
     int n;
     scanf("%d", &n);
 
-    int left = 0, right = 0;
-    int sum = 0;
-
     for(int i = 0; i < n; ++i) {
-        int a, b;
-        scanf("%d %d", &a, &b);
+        int x, y;
+        scanf("%d %d", &x, &y);
 
-        if(i == 0) {
-            left = a;
-            right = b;
+        if(x > right) {
+            sum += right - left;
+            left = x;
+            right = y;
         }
         else {
-            if(a > right) {
-                sum += right - left;
-                left = a;
-                right = b;
-            }
-            else {
-                right = max(b, right);
-            }
+            right = max(y, right);
         }
     }
 
     printf("%d", sum + right - left);
-    return 0;
 }
