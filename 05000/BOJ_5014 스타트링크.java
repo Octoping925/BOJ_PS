@@ -28,7 +28,7 @@ public class Main {
     }
 
     static void bfs(int f, int s, int g, int u, int d, int[] arr) {
-        Queue<Point> q = new LinkedList<>();
+        Queue<Point> q = new ArrayDeque<>();
         q.add(new Point(s, 0));
         while(!q.isEmpty()) {
             Point p = q.poll();
