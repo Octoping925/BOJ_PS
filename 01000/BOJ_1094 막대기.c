@@ -8,11 +8,10 @@ int main()
 
     int cnt = 0;
     for(int i = 1; i <= 64; i <<= 1) {
-        if((n & i) > 0) {
+        if(n & i) {
             cnt++;
         }
     }
 
     printf("%d", cnt);
-    return 0;
 }
