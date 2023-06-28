@@ -5,7 +5,7 @@ int main()
     int c, k;
     scanf("%d", &c);
     
-    for(int i = 0; i < c; ++i) {
+    while(c--) {
         int n, sum = 0, arr[1010];
         scanf("%d", &n);
         
@@ -14,12 +14,12 @@ int main()
             sum += arr[j];
         }
         
-        float avg = (float)sum / n;
+        double avg = (double)sum / n;
         int p = 0;
         
         for(int j = 0; j < n; ++j) {
             if(arr[j] > avg) p++;
         }
-        printf("%0.3f%%\n", (float)p / n * 100);
+        printf("%0.3lf%%\n", (double)p / n * 100);
     }
 }
