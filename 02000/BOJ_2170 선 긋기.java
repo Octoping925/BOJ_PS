@@ -2,60 +2,48 @@
 import java.io.*;
 import java.util.*;
 
-class Line implements Comparable<Line> {
-    public int left;
-    public int right;
-
+class Line {
+    int left, right;
     public Line(int l, int r) {
-        left = l;
-        right = r;
-    }
-
-    public int getLength() {
-        return right - left;
-    }
-    public void set(Line l) {
-        left = l.left;
-        right = l.right;
-    }
-
-    @Override
-    public int compareTo(Line l) {
-        return Integer.compare(left, l.left);
+        this.left = l;
+        this.right = r;
     }
 }
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         int n = Integer.parseInt(br.readLine());
 
-        Line[] arr = new Line[n];
-
+        List<Line> arr = new ArrayList<>();
         for(int i = 0; i < n; ++i) {
-            String[] st = br.readLine().split(" ");
-            int l = Integer.parseInt(st[0]);
-            int r = Integer.parseInt(st[1]);
-            arr[i] = new Line(l, r);
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int l = Integer.parseInt(st.nextToken());
+            int r = Integer.parseInt(st.nextToken());
+            arr.add(new Line(l, r));
         }
 
-        Arrays.sort(arr);
+        arr.sort(Comparator.comparingInt(a -> a.left));
 
         long sum = 0;
-        Line l = new Line(0, 0);
-        boolean first = true;
-        for(Line i : arr) {
-            if(first) {
-                l.set(i);
-                first = false;
+        int left = 0, right = 0, sw = 0;
+
+        for(Line line : arr) {
+            int ll = line.left, rr = line.right;
+            if(sw == 0) {
+                left = ll;
+                right = rr;
+                sw = 1;
             }
-            if(i.left > l.right) {
-                sum += l.getLength();
-                l.set(i);
+            if(ll > right) {
+                sum += right - left;
+                left = ll;
+                right = rr;
             }
-            else l.right = Math.max(i.right, l.right);
+            else right = Math.max(rr, right);
         }
 
-        System.out.println(sum + l.getLength());
+        System.out.println(sum + right - left);
     }
 }
